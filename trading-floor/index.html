@@ -291,6 +291,11 @@ function renderTicker(){
   }
 }
 
+function deskAsOf(){
+  const g = state && state.generated_at; if (!g) return "—";
+  const d = new Date(g); if (isNaN(d)) return g;
+  return d.toLocaleString("en-GB",{timeZone:"Europe/Athens",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",hour12:false});
+}
 function renderHeader(){
   const a = (state && state.account) || {};
   const nb = (state && state.next_blackout) || {};
@@ -314,7 +319,8 @@ function renderHeader(){
         <span style="color:var(--dim)">·</span>
         <span class="mono">${nb.event||"CPI"} blackout in ${cd}</span>
       </div>
-      <div style="margin-top:6px; font-size:12px; color:var(--dim)">Crypto perps desk · BTC + ETH · approve by ticket ID only · read-only web app</div>
+      <div style="margin-top:6px; font-size:12px; color:var(--amber, #f5b942); font-weight:600">Desk data as of ${deskAsOf()} Athens · prices live · agent seats update on tickets, fills and closes</div>
+      <div style="margin-top:4px; font-size:12px; color:var(--dim)">Crypto perps desk · BTC + ETH · approve by ticket ID only · read-only web app</div>
     </div>
     <div class="balance">
       <div class="label">BALANCE</div>
